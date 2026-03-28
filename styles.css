@@ -1,0 +1,139 @@
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity o.75s, visability 0.75s;
+}
+
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader::after{
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px solid #3498db;
+    border-top-color: #7449ff;
+    border-radius: 50%;
+    animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: darkviolet;
+}
+ul li {
+    float: left;
+}
+
+ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+ul li a:hover {
+    background-color: #3918ae;
+}
+  /* Base styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+
+        /* TODO: Style the navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* TODO: Style the profile container */
+        .profile-container {
+            /* Add styles for the main container */
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 20px;
+        }
+
+        /* TODO: Style the profile sections */
+        .profile-section {
+            /* Add styles for each section */
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        nav {
+        display: flex;
+        justify-content: space-between;
+        background-color: rgb(32, 29, 29);
+        position: fixed;
+        top: 10px;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        overflow: hidden;
+    }
+    .nav .brand {
+        color: white;
+        font-size: 1.5rem;
+        padding: 10px 15px;
+    }
+    .nav .nav-items {
+        display: flex;
+        gap: 1rem;
+    }
+    nav ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: flex-start;
+    }
+    nav ul li {
+        flex: 0 0 auto;
+    }
+    nav ul li a {
+        float: right;
+        padding: 10px 10px;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    nav ul li a:hover { 
+        background-color: #333;
+
+    }
+    .item {
+        display: inline-block;
+        margin: 0 10px;
+    }

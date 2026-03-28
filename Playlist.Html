@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist - Spin the Bottle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+        font-family: 'Work Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        color: white;
+    }
+
+    nav.nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #1a1a1a;
+    }
+    
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .brand h3 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+    
+    .highlight {
+        color: #af0f0f;
+    }
+    
+    .nav-items {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .nav-items a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        background-color: #af0f0f;
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        white-space: nowrap;
+    }
+    
+    .nav-items a:hover {
+        background-color: #ff4444;
+    }
+
+    .playlist-container {
+        max-width: 600px;
+        margin: 60px auto 20px auto;
+        padding: 40px;
+        border: 2px solid #af0f0f;
+        border-radius: 15px;
+        background-color: #0a0a0a;
+    }
+
+    .playlist-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .playlist-header h2 {
+        margin: 0;
+        color: #af0f0f;
+        font-size: 2rem;
+    }
+
+    .song-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .song-item {
+        background-color: #1a1a1a;
+        border: 1px solid #af0f0f;
+        padding: 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .song-item:hover {
+        background-color: #2a2a2a;
+    }
+
+    .song-title {
+        color: #af0f0f;
+        font-weight: 600;
+        margin: 0 0 5px 0;
+        font-size: 1.1rem;
+    }
+
+    .song-artist {
+        color: #ccc;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .add-to-shared-btn {
+        background-color: #af0f0f;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+    }
+
+    .add-to-shared-btn:hover {
+        background-color: #ff4444;
+    }
+
+    .nav-btn {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-btn {
+        background-color: #af0f0f;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s;
+    }
+
+    .back-btn:hover {
+        background-color: #ff4444;
+    }
+</style>
+
+<body>
+    <nav class="nav">
+        <div class="brand"><span class="highlight">&#9829</span><h3>Spin The Bottle</h3></div>
+        <div class="nav-items">
+            <a href="index.html">Home</a>
+            <a href="profile.html">Profile</a>
+            <a href="Match.html">Match</a>
+            <a href="chat.html">Chat</a>
+            <a href="playlist.html">Playlist</a>
+        </div>
+    </nav>
+
+    <div class="playlist-container">
+        <div class="playlist-header">
+            <h2>🎵 Your Playlist</h2>
+        </div>
+        <div class="song-list" id="songList"></div>
+        <div class="nav-btn">
+            <a href="chat.html"><button class="back-btn">Back to Chat</button></a>
+        </div>
+    </div>
+
+    <script>
+        // Sample songs database
+        const songs = [
+            { id: 1, title: "Blinding Lights", artist: "The Weeknd" },
+            { id: 2, title: "Shape of You", artist: "Ed Sheeran" },
+            { id: 3, title: "As It Was", artist: "Harry Styles" },
+            { id: 4, title: "Anti-Hero", artist: "Taylor Swift" },
+            { id: 5, title: "Levitating", artist: "Dua Lipa" },
+            { id: 6, title: "Flowers", artist: "Miley Cyrus" },
+            { id: 7, title: "Cruel Summer", artist: "Taylor Swift" },
+            { id: 8, title: "Good as Hell", artist: "Lizzo" },
+            { id: 9, title: "Industry Baby", artist: "Lil Nas X" },
+            { id: 10, title: "Sunroof", artist: "Nicky Youre" }
+        ];
+
+        function displayPlaylist() {
+            const songList = document.getElementById('songList');
+            songList.innerHTML = songs.map(song => `
+                <div class="song-item">
+                    <p class="song-title">${song.title}</p>
+                    <p class="song-artist">${song.artist}</p>
+                    <button class="add-to-shared-btn" onclick="addToSharedPlaylist(${song.id}, '${song.title}', '${song.artist}')">+ Add to Shared</button>
+                </div>
+            `).join('');
+        }
+
+        function addToSharedPlaylist(id, title, artist) {
+            const currentMatchProfile = JSON.parse(localStorage.getItem('currentChat'));
+            if (currentMatchProfile) {
+                const sharedKey = `shared_playlist_${currentMatchProfile.id}`;
+                let sharedPlaylist = JSON.parse(localStorage.getItem(sharedKey)) || [];
+                
+                if (!sharedPlaylist.find(s => s.id === id)) {
+                    sharedPlaylist.push({ id, title, artist });
+                    localStorage.setItem(sharedKey, JSON.stringify(sharedPlaylist));
+                    alert(`"${title}" added to shared playlist! 🎵`);
+                } else {
+                    alert(`"${title}" is already in your shared playlist!`);
+                }
+            }
+        }
+
+        // Load playlist on page load
+        displayPlaylist();
+    </script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Spin the Bottle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+        font-family: 'Work Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        color: white;
+    }
+
+    nav.nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #1a1a1a;
+    }
+    
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .brand h3 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+    
+    .highlight {
+        color: #af0f0f;
+    }
+    
+    .nav-items {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .nav-items a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        background-color: #af0f0f;
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        white-space: nowrap;
+    }
+    
+    .nav-items a:hover {
+        background-color: #ff4444;
+    }
+
+    .profile-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 40px;
+        border: 2px solid #af0f0f;
+        border-radius: 15px;
+        background-color: #0a0a0a;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .profile-header h1 {
+        margin: 0 0 30px 0;
+        font-size: 2rem;
+        color: #af0f0f;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #af0f0f;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #af0f0f;
+        border-radius: 8px;
+        background-color: #1a1a1a;
+        color: white;
+        font-family: 'Work Sans', sans-serif;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #ff4444;
+        box-shadow: 0 0 10px rgba(175, 15, 15, 0.5);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    .interests-section {
+        margin-top: 30px;
+    }
+
+    .interests-section h3 {
+        color: #af0f0f;
+        margin-bottom: 15px;
+    }
+
+    .interest-input {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .interest-input input {
+        flex: 1;
+    }
+
+    .add-btn {
+        background-color: #af0f0f;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s;
+    }
+
+    .add-btn:hover {
+        background-color: #ff4444;
+    }
+
+    .interests-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .interest-tag {
+        background-color: #af0f0f;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    .interest-tag button {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 0;
+    }
+
+    .save-btn {
+        width: 100%;
+        background-color: #af0f0f;
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 30px;
+        transition: background-color 0.3s;
+    }
+
+    .save-btn:hover {
+        background-color: #ff4444;
+    }
+
+    .success-message {
+        display: none;
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <nav class="nav">
+        <div class="brand"><span class="highlight">&#9829</span><h3>Spin The Bottle</h3></div>
+        <div class="nav-items">
+            <a href="index.html">Home</a>
+            <a href="Match.html">Match</a>
+            <a href="profile.html">Profile</a>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Create Your Profile</h1>
+        </div>
+
+        <div id="successMessage" class="success-message">Profile saved successfully!</div>
+
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="Enter your phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="hobbies">Hobbies</label>
+                <textarea id="hobbies" placeholder="What are your hobbies? (e.g., reading, swimming, cooking)"></textarea>
+            </div>
+
+            <div class="interests-section">
+                <h3>Notes</h3>
+                <div class="interest-input">
+                    <input type="text" id="interestInput" placeholder="Add a note...">
+                    <button type="button" class="add-btn" onclick="addInterest()">Add</button>
+                </div>
+                <div id="interestsList" class="interests-list"></div>
+            </div>
+
+            <button type="submit" class="save-btn">Save Profile</button>
+        </form>
+    </div>
+
+    <div id="completionModal" class="modal">
+        <div class="profile-card">
+            <h2>Welcome! 🎉</h2>
+            <p>Your account has been successfully set up!</p>
+            <p>You're ready to start making authentic connections.</p>
+            <button class="close-btn" onclick="goToMatch()">Start Matching</button>
+        </div>
+    </div>
+
+    <script>
+        let interests = [];
+
+        function addInterest() {
+            const input = document.getElementById('interestInput');
+            const interestText = input.value.trim();
+
+            if (interestText && !interests.includes(interestText)) {
+                interests.push(interestText);
+                displayInterests();
+                input.value = '';
+            }
+        }
+
+        function removeInterest(interest) {
+            interests = interests.filter(i => i !== interest);
+            displayInterests();
+        }
+
+        function displayInterests() {
+            const list = document.getElementById('interestsList');
+            list.innerHTML = interests.map(interest => `
+                <div class="interest-tag">
+                    ${interest}
+                    <button type="button" onclick="removeInterest('${interest}')">×</button>
+                </div>
+            `).join('');
+        }
+
+        function goToMatch() {
+            window.location.href = 'Match.html';
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const profileData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                bio: document.getElementById('bio').value,
+                hobbies: document.getElementById('hobbies').value,
+                notes: interests
+            };
+
+            localStorage.setItem('userProfile', JSON.stringify(profileData));
+
+            const completionModal = document.getElementById('completionModal');
+            completionModal.classList.add('show');
+
+            console.log('Profile saved:', profileData);
+        });
+
+        // Allow Enter key to add note
+        document.getElementById('interestInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addInterest();
+            }
+        });
+    </script>
+</body>
+</html>

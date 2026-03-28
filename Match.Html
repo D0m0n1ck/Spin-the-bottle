@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin the Bottle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+    body {
+      font-family: 'Work Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+      color: #333;
+    }
+    
+    nav.nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #1a1a1a;
+    }
+    
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .brand h3 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+    
+    .highlight {
+        color: #af0f0f;
+    }
+    
+    .nav-items {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .nav-items a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        background-color: #af0f0f;
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        white-space: nowrap;
+    }
+    
+    .nav-items a:hover {
+        background-color: #ff4444;
+    }
+    
+    .bottle-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        margin: 100px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+    }
+    
+    .bottle {
+        width: 100%;
+        height: 100%;
+        background: url('https://png.pngtree.com/png-clipart/20231020/original/pngtree-champagne-bottle-png-in-cartoon-style-all-elements-are-isolated-png-image_13385475.png') no-repeat center;
+        background-size: contain;
+        transition: transform 4s ease-out;
+        cursor: pointer;
+    }
+
+    .instructions {
+        position: absolute;
+        bottom: -40px;
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+        color: #ccc;
+    }
+    
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #af0f0f;
+        background-color: #af0f0f;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #000000;
+    }
+    
+    .button.p {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    #spinBtn {
+        margin: -60px auto 20px auto;
+        display: block;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 2px solid #af0f0f;
+        font-size: 0.85rem;
+        padding: 0;
+        position: relative;
+        z-index: 2;
+    }
+    
+    #spinBtn:hover {
+        background: #ff4444;
+        border-color: #ff4444;
+    }
+    
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 3;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .modal.show {
+        display: flex;
+    }
+    
+    .profile-card {
+        background-color: #1a1a1a;
+        padding: 40px;
+        border-radius: 20px;
+        border: 2px solid #af0f0f;
+        text-align: center;
+        color: white;
+        max-width: 400px;
+        animation: popIn 0.5s ease-out;
+    }
+    
+    @keyframes popIn {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    
+    .profile-card h2 {
+        font-size: 2rem;
+        margin: 0 0 20px 0;
+        color: #af0f0f;
+    }
+    
+    .profile-card p {
+        font-size: 1rem;
+        margin: 10px 0;
+        color: #ccc;
+    }
+    
+    .common-activities {
+        background-color: #000000;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+    
+    .common-activities h3 {
+        margin: 0 0 10px 0;
+        color: #af0f0f;
+    }
+    
+    .activity-tag {
+        display: inline-block;
+        background-color: #af0f0f;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 15px;
+        margin: 5px 5px;
+        font-size: 0.9rem;
+    }
+    
+    .close-btn {
+        background-color: #af0f0f;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        margin-top: 20px;
+        font-size: 1rem;
+    }
+    
+    .close-btn:hover {
+        background-color: #ff4444;
+    }
+</style>
+<body>
+  <nav class="nav">
+    <div class="brand"><span class="highlight">&#9829</span><h3>Spin The Bottle</h3></div>
+    <div class="nav-items">
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="Match.html">Match</a>
+        <a href="chat.html">Chat</a>
+    </div>
+  </nav>
+
+  <h1>
+    See the <span class="highlight">soul</span> <br>
+    not the selfie
+  </h1>
+  <p>
+    Blindfold strips away the superficial. No Photos. No <br>
+    catfishing. Just authentic connections built on who you <br>
+    really are
+  </p>
+
+  <div class="bottle-container">
+    <div class="bottle" id="bottle"></div>
+  </div>
+  <button id="spinBtn">Spin</button>
+
+<div id="matchModal" class="modal">
+    <div class="profile-card">
+        <h2 id="matchName">Name</h2>
+        <p>💕 You matched!</p>
+        <div class="common-activities">
+            <h3>Common Notes</h3>
+            <div id="commonActivities"></div>
+        </div>
+        <button class="close-btn" onclick="goToChat()">Continue Spinning</button>
+    </div>
+</div>
+
+<script>
+    const bottle = document.getElementById('bottle');
+    const spinBtn = document.getElementById('spinBtn');
+    const matchModal = document.getElementById('matchModal');
+    let currentRotation = 0;
+    let isSpinning = false;
+    let lastMatchedProfile = null;
+
+    // Get current user profile from localStorage
+    function getCurrentUserProfile() {
+        const savedProfile = localStorage.getItem('userProfile');
+        if (savedProfile) {
+            return JSON.parse(savedProfile);
+        }
+        return { name: "User", notes: ["hiking", "music", "cooking"] };
+    }
+
+    // Sample profiles with notes
+    const profiles = [
+        { id: 1, name: "Alex", notes: ["hiking", "cooking", "music"] },
+        { id: 2, name: "Jordan", notes: ["gaming", "reading", "music"] },
+        { id: 3, name: "Casey", notes: ["hiking", "photography", "cooking"] },
+        { id: 4, name: "Morgan", notes: ["hiking", "cooking", "travel"] },
+        { id: 5, name: "Riley", notes: ["gaming", "music", "travel"] }
+    ];
+
+    function findMatch(currentProfile) {
+        let bestMatch = null;
+        let highestScore = 0;
+
+        profiles.forEach(profile => {
+            const commonNotes = currentProfile.notes.filter(note =>
+                profile.notes.includes(note)
+            );
+            const matchScore = commonNotes.length;
+
+            if (matchScore > highestScore) {
+                highestScore = matchScore;
+                bestMatch = profile;
+            }
+        });
+
+        return bestMatch || profiles[Math.floor(Math.random() * profiles.length)];
+    }
+
+    function displayMatch(match, currentProfile) {
+        const commonNotes = currentProfile.notes.filter(note => 
+            match.notes.includes(note)
+        );
+        
+        lastMatchedProfile = match;
+        document.getElementById('matchName').textContent = match.name;
+        
+        const notesHTML = commonNotes.length > 0 
+            ? commonNotes.map(note => `<span class="activity-tag">${note}</span>`).join('')
+            : '<span class="activity-tag">New connection!</span>';
+        
+        document.getElementById('commonActivities').innerHTML = notesHTML;
+        
+        matchModal.classList.add('show');
+    }
+
+    function goToChat() {
+        if (lastMatchedProfile) {
+            localStorage.setItem('currentChat', JSON.stringify(lastMatchedProfile));
+            window.location.href = 'chat.html';
+        }
+    }
+
+    function closeModal() {
+        matchModal.classList.remove('show');
+        isSpinning = false;
+        spinBtn.disabled = false;
+    }
+
+    spinBtn.addEventListener('click', () => {
+        if (isSpinning) return;
+
+        isSpinning = true;
+        spinBtn.disabled = true;
+
+        const extraSpins = Math.floor(Math.random() * 3) + 3;
+        const randomAngle = Math.floor(Math.random() * 360);
+        currentRotation += extraSpins * 360 + randomAngle;
+
+        bottle.style.transform = `rotate(${currentRotation}deg)`;
+
+        // After spin completes (4 seconds)
+        setTimeout(() => {
+            const currentUser = getCurrentUserProfile();
+            const match = findMatch(currentUser);
+            displayMatch(match, currentUser);
+        }, 4000);
+    });
+</script>
+
+</body>
+</html>
